@@ -20,7 +20,11 @@ interface DonationResponse {
 
 declare global {
   interface Window {
-    FlutterwaveCheckout: (config: Record<string, unknown>) => void;
+    PaystackPop: {
+      setup: (config: Record<string, unknown>) => {
+        openIframe: () => void;
+      };
+    };
   }
 }
 
@@ -40,7 +44,7 @@ const Give: React.FC = () => {
 
   useEffect(() => {
     const script = document.createElement('script');
-    script.src = 'https://checkout.flutterwave.com/v3.js';
+    script.src = 'https://js.paystack.co/v1/inline.js';
     script.async = true;
     document.body.appendChild(script);
 
@@ -81,38 +85,48 @@ const Give: React.FC = () => {
         return;
       }
 
-      if (!window.FlutterwaveCheckout) {
+      if (!window.PaystackPop) {
         setError('Payment system is loading. Please try again.');
         setLoading(false);
         return;
       }
 
-      const config = {
-        public_key: 'FLWPUBK_TEST-e995556f43e7826917d6dae77028eadb-X',
-        tx_ref: `donation-${Date.now()}`,
-        amount: parseFloat(finalAmount),
+      const handler = window.PaystackPop.setup({
+        key: 'pk_live_7e2b4ba3631610ff4c78f2885d71e8de41734d85',
+        email: formData.email,
+        amount: parseFloat(finalAmount) * 100,
         currency: 'NGN',
-        payment_options: 'card,ussd,account,qr,banktransfer',
-        customer: {
-          email: formData.email,
-          name: formData.name,
-          phonenumber: formData.phone,
+        ref: `donation-${Date.now()}`,
+        metadata: {
+          custom_fields: [
+            {
+              display_name: "Donor Name",
+              variable_name: "donor_name",
+              value: formData.name
+            },
+            {
+              display_name: "Phone Number",
+              variable_name: "phone_number",
+              value: formData.phone
+            },
+            {
+              display_name: "Message",
+              variable_name: "message",
+              value: formData.message
+            }
+          ]
         },
-        customizations: {
-          title: 'Shining Light Family Church',
-          description: formData.message || 'Support our ministry',
-          logo: 'https://raw.githubusercontent.com/makindetwinsfoundation/slfc/main/images/slfclogo-removebg-preview.png',
-        },
-        callback: () => {
+        callback: (response: { reference: string }) => {
           setSuccess(true);
           setLoading(false);
+          console.log('Payment successful:', response);
         },
-        onclose: () => {
+        onClose: () => {
           setLoading(false);
         },
-      };
+      });
 
-      window.FlutterwaveCheckout(config);
+      handler.openIframe();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
       setLoading(false);
@@ -260,7 +274,7 @@ const Give: React.FC = () => {
             </button>
 
             <p className="text-sm text-gray-600 text-center">
-              Your donation is secure and processed through Flutterwave. We are a registered nonprofit organization.
+              Your donation is secure and processed through Paystack. We are a registered nonprofit organization.
             </p>
           </form>
         </div>
