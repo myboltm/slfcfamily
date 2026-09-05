@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { EditableText, EditableImage } from './Editable';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,15 +15,20 @@ const Header: React.FC = () => {
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center space-x-3">
             <div className="bg-white p-2 rounded-full shadow-md">
-              <img 
-                src="https://raw.githubusercontent.com/makindetwinsfoundation/slfc/main/images/slfclogo-removebg-preview.png" 
-                alt="Shining Light Family Church Logo" 
+              <EditableImage
+                contentKey="header.logo"
+                defaultValue="https://raw.githubusercontent.com/makindetwinsfoundation/slfc/main/images/slfclogo-removebg-preview.png"
                 className="h-8 w-8 object-contain"
+                alt="Shining Light Family Church Logo"
               />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Shining Light</h1>
-              <p className="text-sm text-gray-600">Family Church</p>
+              <h1 className="text-2xl font-bold text-gray-900">
+                <EditableText contentKey="header.name" defaultValue="Shining Light" />
+              </h1>
+              <p className="text-sm text-gray-600">
+                <EditableText contentKey="header.tagline" defaultValue="Family Church" />
+              </p>
             </div>
           </div>
 

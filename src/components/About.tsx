@@ -1,5 +1,6 @@
 import React from 'react';
 import { Heart, Users, BookOpen, Lightbulb } from 'lucide-react';
+import { EditableText, EditableImage } from './Editable';
 
 const About: React.FC = () => {
   const values = [
@@ -33,9 +34,7 @@ const About: React.FC = () => {
             About Our <span className="text-purple-600">Church</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            For decades, Shining Light Family Church has been a beacon of hope 
-            and love in our community. We are a diverse family of believers committed 
-            to growing together in faith, hope, and love.
+            <EditableText contentKey="about.intro" defaultValue="For decades, Shining Light Family Church has been a beacon of hope and love in our community. We are a diverse family of believers committed to growing together in faith, hope, and love." multiline />
           </p>
         </div>
 
@@ -43,20 +42,17 @@ const About: React.FC = () => {
           <div>
             <h3 className="text-3xl font-bold text-gray-900 mb-6">Our Mission</h3>
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              To be a shining light in our community by sharing the love of Christ, 
-              nurturing spiritual growth, and serving others with compassion and grace. 
-              We believe that every person has value and purpose in God's kingdom.
+              <EditableText contentKey="about.mission1" defaultValue="To be a shining light in our community by sharing the love of Christ, nurturing spiritual growth, and serving others with compassion and grace. We believe that every person has value and purpose in God's kingdom." multiline />
             </p>
             <p className="text-lg text-gray-600 leading-relaxed">
-              Through worship, fellowship, and service, we seek to make disciples 
-              who will transform our community and world with the light of Christ.
+              <EditableText contentKey="about.mission2" defaultValue="Through worship, fellowship, and service, we seek to make disciples who will transform our community and world with the light of Christ." multiline />
             </p>
           </div>
-          <div 
-            className="rounded-2xl shadow-2xl h-96 bg-cover bg-center"
-            style={{
-              backgroundImage: `url('https://raw.githubusercontent.com/makindetwinsfoundation/slfc/main/images/photo_2025-09-30_21-45-01.jpg')`
-            }}
+          <EditableImage
+            contentKey="about.image"
+            defaultValue="https://raw.githubusercontent.com/makindetwinsfoundation/slfc/main/images/photo_2025-09-30_21-45-01.jpg"
+            className="rounded-2xl shadow-2xl h-96 w-full object-cover"
+            alt="About our church"
           />
         </div>
 
@@ -69,8 +65,12 @@ const About: React.FC = () => {
               <div className="bg-gradient-to-br from-purple-500 to-purple-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <value.icon className="h-8 w-8 text-white" />
               </div>
-              <h4 className="text-2xl font-bold text-gray-900 mb-4">{value.title}</h4>
-              <p className="text-gray-600 leading-relaxed">{value.description}</p>
+              <h4 className="text-2xl font-bold text-gray-900 mb-4">
+                <EditableText contentKey={`about.value${index}.title`} defaultValue={value.title} />
+              </h4>
+              <p className="text-gray-600 leading-relaxed">
+                <EditableText contentKey={`about.value${index}.desc`} defaultValue={value.description} multiline />
+              </p>
             </div>
           ))}
         </div>

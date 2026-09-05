@@ -1,36 +1,44 @@
 import React from 'react';
 import { Calendar, MapPin, Clock } from 'lucide-react';
+import { EditableText, EditableImage } from './Editable';
+import { useEdit } from '../context/EditContext';
+
+const HERO_BG = 'https://raw.githubusercontent.com/makindetwinsfoundation/slfc/main/images/photo_2025-09-30_21-37-04.jpg';
 
 const Hero: React.FC = () => {
+  const { content, isEditMode } = useEdit();
+  const bgImage = content['hero.bg'] ?? HERO_BG;
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center">
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `linear-gradient(rgba(147, 51, 234, 0.6), rgba(168, 85, 247, 0.4)), url('https://raw.githubusercontent.com/makindetwinsfoundation/slfc/main/images/photo_2025-09-30_21-37-04.jpg')`
-        }}
+        style={{ backgroundImage: `linear-gradient(rgba(147, 51, 234, 0.6), rgba(168, 85, 247, 0.4)), url('${bgImage}')` }}
       />
-      
+      {isEditMode && (
+        <div className="absolute top-4 right-4 z-20">
+          <EditableImage contentKey="hero.bg" defaultValue={HERO_BG} className="w-24 h-16 object-cover rounded border-2 border-purple-400" />
+        </div>
+      )}
       <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-          Welcome to <span className="text-purple-200">Shining Light</span> Family Church
+          <EditableText contentKey="hero.title" defaultValue="Welcome to Shining Light Family Church" className="text-white" />
         </h1>
         <p className="text-xl md:text-2xl mb-8 text-gray-100 leading-relaxed">
-          A place where faith grows, families flourish, and community thrives. 
-          Join us in spreading God's love and light to our community.
+          <EditableText contentKey="hero.subtitle" defaultValue="A place where faith grows, families flourish, and community thrives. Join us in spreading God's love and light to our community." multiline />
         </p>
-        
+
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
-            Plan Your Visit
+            <EditableText contentKey="hero.cta1" defaultValue="Plan Your Visit" />
           </button>
-          <a 
+          <a
             href="https://youtube.com/@shininglightfamilychurch6399?si=9qSExD-iZaOd0yp3"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-purple-900 px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 inline-block text-center"
           >
-            Watch Online
+            <EditableText contentKey="hero.cta2" defaultValue="Watch Online" />
           </a>
         </div>
 
@@ -39,15 +47,15 @@ const Hero: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-4 text-center">
             <div className="flex items-center justify-center space-x-2">
               <Clock className="h-5 w-5 text-purple-200" />
-              <span className="font-medium">9:00 AM</span>
+              <span className="font-medium"><EditableText contentKey="hero.time" defaultValue="9:00 AM" /></span>
             </div>
             <div className="flex items-center justify-center space-x-2">
               <MapPin className="h-5 w-5 text-purple-200" />
-              <span className="font-medium"> behind state hospital Ota</span>
+              <span className="font-medium"><EditableText contentKey="hero.location" defaultValue="behind state hospital Ota" /></span>
             </div>
             <div className="flex items-center justify-center space-x-2">
               <Calendar className="h-5 w-5 text-purple-200" />
-              <span className="font-medium">Every Sunday</span>
+              <span className="font-medium"><EditableText contentKey="hero.schedule" defaultValue="Every Sunday" /></span>
             </div>
           </div>
         </div>

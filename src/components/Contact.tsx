@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Phone, Mail, MapPin, Clock, Send, User, MessageSquare } from 'lucide-react';
+import { EditableText } from './Editable';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -56,7 +57,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-xl font-semibold text-gray-900 mb-2">Address</h4>
-                  <p className="text-gray-600">behind state Hospital<br />Obasanjo farm road, Ota</p>
+                  <p className="text-gray-600"><EditableText contentKey="contact.address" defaultValue="behind state Hospital, Obasanjo farm road, Ota" multiline /></p>
                 </div>
               </div>
 
@@ -66,7 +67,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-xl font-semibold text-gray-900 mb-2">Phone</h4>
-                  <p className="text-gray-600">+2347033579391</p>
+                  <p className="text-gray-600"><EditableText contentKey="contact.phone" defaultValue="+2347033579391" /></p>
                 </div>
               </div>
 
@@ -76,7 +77,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-xl font-semibold text-gray-900 mb-2">Email</h4>
-                  <p className="text-gray-600">contact@slfcfamilyww.org</p>
+                  <p className="text-gray-600"><EditableText contentKey="contact.email" defaultValue="contact@slfcfamilyww.org" /></p>
                 </div>
               </div>
 
