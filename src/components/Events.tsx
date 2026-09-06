@@ -89,7 +89,7 @@ const Events: React.FC = () => {
     <div className={`bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group ${isSpecial ? 'border-2 border-purple-200' : ''}`}>
       <div className="lg:flex">
         <div
-          className="lg:w-1/3 h-48 lg:h-auto bg-cover bg-center relative overflow-hidden"
+          className="lg:w-2/5 h-48 lg:h-auto bg-cover bg-center relative overflow-hidden"
           style={{ backgroundImage: `url('${event.image || 'https://images.pexels.com/photos/1112048/pexels-photo-1112048.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'}')` }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20 group-hover:to-black/40 transition-all duration-300" />
@@ -99,7 +99,7 @@ const Events: React.FC = () => {
             </span>
           </div>
         </div>
-        <div className="lg:w-2/3 p-8 relative">
+        <div className="lg:w-3/5 p-8 relative">
           {isEditMode && (
             <button
               onClick={() => handleDelete(event.id)}
@@ -146,11 +146,11 @@ const Events: React.FC = () => {
 
         {/* Special Events */}
         {special.length > 0 && (
-          <div className="mb-16">
+          <div className="mb-10">
             <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center">
               Special <span className="text-purple-600">Events</span>
             </h3>
-            <div className="grid lg:grid-cols-2 gap-8">
+            <div className="grid gap-6">
               {special.map(event => <EventCard key={event.id} event={event} special />)}
             </div>
           </div>
