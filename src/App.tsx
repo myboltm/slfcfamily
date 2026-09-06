@@ -5,7 +5,7 @@ import { EditProvider } from './context/EditContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import LoginPage from './pages/LoginPage';
 import AdminBlogPage from './pages/AdminBlogPage';
-import AdminSitePage from './pages/AdminSitePage';
+import AdminDashboard from './pages/AdminDashboard';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -37,7 +37,7 @@ function App() {
   if (isAdminSubdomain) {
     return (
       <AuthProvider>
-        <AdminSitePage />
+        <AdminDashboard />
       </AuthProvider>
     );
   }
