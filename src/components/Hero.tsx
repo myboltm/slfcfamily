@@ -29,8 +29,11 @@ const Hero: React.FC = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
-            <EditableText contentKey="hero.cta1" defaultValue="Plan Your Visit" />
+          <button
+            className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+          >
+            <EditableText contentKey="hero.cta1" defaultValue="Reach Out" />
           </button>
           <a
             href="https://youtube.com/@shininglightfamilychurch6399?si=9qSExD-iZaOd0yp3"
